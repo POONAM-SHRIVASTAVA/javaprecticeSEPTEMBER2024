@@ -1,0 +1,28 @@
+package com.productapp;
+
+import java.util.Iterator;
+import java.util.List;
+
+import com.productapp.daoimpl.ProductDaoImpl;
+
+
+public class ProductApp {
+	public static void main(String arg[]) {
+//Product p= new Product(6,"Ips PANNEL",7865);
+//ProductDaoImpl productDaoImpl= new ProductDaoImpl();
+// int result =productDaoImpl.save(p);
+// System.out.println(result);
+//}
+ProductDaoImpl productDaoImpl=new ProductDaoImpl();
+List<Product> productsList =productDaoImpl.getAll();
+Iterator <Product>productIterator=productsList.iterator();
+while(productIterator.hasNext()) {
+	Product product=productIterator.next();
+	System.out.println(product);
+	
+	
+}
+	} 
+}
+
+

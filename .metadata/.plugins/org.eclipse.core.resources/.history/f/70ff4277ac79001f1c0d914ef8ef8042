@@ -1,0 +1,76 @@
+package com.productapp.utility;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SqlUtil {
+    final static String Db_user = "root";
+    final static String db_password = "cdac";
+    final static String db_name = "cdac_java";
+    final static String db_url = "jdbc:mysql://localhost:3306/" + db_name;
+    final static String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+
+    static Statement stmt;
+    static Connection conn;
+
+    // Initialize the database connection
+    static public void connectionDb() throws ClassNotFoundException, SQLException {
+        // Load the JDBC driver
+        Class.forName(jdbc_driver);
+        
+        // Establish the connection
+        conn = DriverManager.getConnection(db_url, Db_user, db_password);
+        
+        // Initialize the Statement object
+        stmt = conn.createStatement();
+    }
+
+    // Insert operation
+    static public int insert(String qry) throws SQLException {
+        int result = -1;
+        if (!qry.trim().isEmpty()) {
+            result = stmt.executeUpdate(qry);  // Capture the result
+        }
+        return result;
+    }
+
+    // Update operation
+    static public int update(String qry) throws SQLException {
+        int result = -1;
+        if (!qry.trim().isEmpty()) {
+            result = stmt.executeUpdate(qry);  // Capture the result
+        }
+        return result;
+    }
+
+    // Delete operation
+    static public int delete(String qry) throws SQLException {
+        int result = -1;
+        if (!qry.trim().isEmpty()) {
+            result = stmt.executeUpdate(qry);  // Capture the result
+        }
+        return result;
+    }
+
+    // Fetch data (select operation)
+    static public ResultSet fetch(String qry) throws SQLException {
+        ResultSet rs = null;
+        if (!qry.trim().isEmpty()) {
+            rs = stmt.executeQuery(qry);  // Assign the result to rs
+        }
+        return rs;
+    }
+
+    // Close the connection and statement
+    static public void close() throws SQLException {
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+    }
+}

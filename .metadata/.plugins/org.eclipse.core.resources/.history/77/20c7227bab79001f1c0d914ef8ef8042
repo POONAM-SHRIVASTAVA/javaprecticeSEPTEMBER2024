@@ -1,0 +1,39 @@
+package com.productapp.daoimpl;
+
+import com.productapp.model.Product;
+import com.productapp.utility.SqlUtil;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDaoImpl implements Product{
+
+    public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
+        
+        try {
+            // Ensure the database connection is established
+            SqlUtil.connectionDb();
+            
+            String query = "SELECT * FROM product";  // Assuming table is 'product'
+            ResultSet rs = SqlUtil.fetch(query);
+            
+            while (rs != null && rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                float price = rs.getFloat("price");
+
+                products.add(new Product(id, name, price));
+            }
+
+            // Close the resources after use
+            SqlUtil.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return products;
+    }
+}
